@@ -1,22 +1,15 @@
 const express = require('express');
 const signupRoute = require("./routes/signup");
-
+const cors = require('cors');
 const app = express();
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 5000;
 
-app.use(express.json());  // Use this instead of bodyParser.json()
 
-app.use((req, res, next) => {
-    console.log('Incoming request:', {
-      method: req.method,
-      path: req.path,
-      headers: req.headers,
-      body: req.body
-    });
-    next();
-  });
-  
-  app.use("/user", signupRoute);
+app.use(cors({
+  origin: 'http://localhost:3000'
+}));
+
+app.use(express.json());
 
 app.use("/user", signupRoute);
 

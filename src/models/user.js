@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mon = require('../configuration/dbConfig');
 
 const userSchema = new mongoose.Schema({
     name:String,
