@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { secretKey } = require("../configuration/jwtConfig");
+console.log("Generation secret key:", secretKey.substring(0, 10) + "...");
+
 
 function generateToken(user) {
     const payload = {
