@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
-const uri = "mongodb://127.0.0.1:27017/jwt_db";
-// const uri = "mongodb://admin:mridul@localhost:27017/jwt_db?authSource=admin";
+const uri = process.env.MONGODB_URI;
+
+
 
 mongoose.connect(uri,{
   serverSelectionTimeoutMS: 5000
