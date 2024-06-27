@@ -5,7 +5,7 @@ const cors = require('cors');
 const app = express();
 const createAdminAccount = require("./scripts/admin");
 const PORT = process.env.PORT || 5000;
-require('dotenv').config();
+
 
 
 app.use(cors({

@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-const { MongoClient, ServerApiVersion } = require('mongodb');
 
-const uri = process.env.MONGODB_URI;
+const uri = "mongodb+srv://mridulbirla13:gAXZpE43ujfiep8o@cluster0.rm4nkc5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-
+console.log("URL -- ",uri);
 
 mongoose.connect(uri,{
   serverSelectionTimeoutMS: 5000
@@ -18,3 +17,4 @@ mongoose.connection.on("error",(err)=>{
 });
 
 module.exports = mongoose;
+
