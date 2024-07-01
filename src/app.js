@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const passport = require('passport');
 require('./services/authGoogle');
-require('./services/authGitHub');
+require('./services/authGithub');
 const session = require('express-session');
 
 
