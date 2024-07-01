@@ -5,10 +5,8 @@ const passport = require('passport');
 require('./services/authGoogle');
 require('./services/authGithub');
 const session = require('express-session');
-const RedisStore = require('connect-redis')(session); // Redis session store
-const redisClient = require('redis').createClient(); // Redis client
-
-
+const RedisStore = require('connect-redis').default; // Updated Redis session store
+const { createClient } = require('redis'); // Updated Redis client
 
 const signupRoute = require("./routes/signup");
 const loginRoute = require("./routes/login");
@@ -19,6 +17,14 @@ const cors = require('cors');
 const app = express();
 const createAdminAccount = require("./scripts/admin");
 const PORT = process.env.PORT || 5000;
+
+// Redis client configuration
+const redisClient = createClient({
+  url: process.env.REDIS_URL // Ensure to set your Redis URL in the .env file
+});
+
+// Connect to Redis
+redisClient.connect().catch(console.error);
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '..', 'build')));
