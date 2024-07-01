@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const uri = "mongodb+srv://mridulbirla13:gAXZpE43ujfiep8o@cluster0.rm4nkc5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.MONGODB_URI;
 
 console.log("URL -- ",uri);
 
