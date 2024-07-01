@@ -5,6 +5,9 @@ const passport = require('passport');
 require('./services/authGoogle');
 require('./services/authGithub');
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session); // Redis session store
+const redisClient = require('redis').createClient(); // Redis client
+
 
 
 const signupRoute = require("./routes/signup");
@@ -27,7 +30,13 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true }));
+// Session middleware with Redis store
+app.use(session({
+  store: new RedisStore({ client: redisClient }),
+  secret: process.env.SESSION_SECRET || 'keyboard cat', // Use environment variable for session secret
+  resave: false,
+  saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
