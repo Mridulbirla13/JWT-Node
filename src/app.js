@@ -4,6 +4,7 @@ const express = require('express');
 const passport = require('passport');
 require('./services/authGoogle');
 require('./services/authGithub');
+const MongoStore = require('connect-mongo');
 const session = require('express-session');
 
 
@@ -28,7 +29,17 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true }));
+// app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true }));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,
+    ttl: 14 * 24 * 60 * 60 // Session TTL (optional)
+  })
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -49,5 +60,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on: http://localhost:${PORT}`);
+  console.log(`Server is running on: http://localhost:${PORT}`);
 });
