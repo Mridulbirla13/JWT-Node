@@ -12,6 +12,7 @@ const session = require('express-session');
 const signupRoute = require("./routes/signup");
 const loginRoute = require("./routes/login");
 const userRoute = require("./routes/user");
+const forgotPasswordRoute = require('./routes/forgotPassword'); 
 
 const cors = require('cors');
 
@@ -48,6 +49,8 @@ createAdminAccount();
 app.use("/user", signupRoute);
 app.use("/auth", loginRoute);
 app.use("/api", userRoute);
+app.use("/auth", forgotPasswordRoute);
+
 
 // Handle the `/dashboard` route
 app.get('/dashboard', (req, res) => {
